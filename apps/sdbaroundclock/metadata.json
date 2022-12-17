@@ -1,0 +1,15 @@
+{
+  "id": "sdbaroundclock",
+  "name": "Around Clock",
+  "version": "0.01",
+  "description": "Just a clock... or is it?",
+  "icon": "sdbaroundclock.png",
+  "tags": "clock",
+  "supports": ["BANGLEJS2"],
+  "readme": "README.md",
+  "storage": [
+    {"name":"sdbaroundclock.app.js","url":"app.js"},
+    {"name":"sdbaroundclock.img","url":"app-icon.js","evaluate":true}
+  ],
+  "allow_emulator": true
+}

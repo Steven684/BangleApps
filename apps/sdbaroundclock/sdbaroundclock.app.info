@@ -1,0 +1,6 @@
+require("Storage").write("sdbaroundclock.info",{
+  "id":"sdbaroundclock",
+  "name":"Around Clock",
+  "src":"sdbaroundclock.app.js",
+  "icon":"sdbaroundclock.img"
+});
