@@ -12,6 +12,8 @@
   if (!settings.fullscreen) {
     Bangle.loadWidgets();
     Bangle.drawWidgets();
+  } else { // for fast-load, if we had widgets then we should hide them
+    require("widget_utils").hide();
   }
   let launchCache = s.readJSON("iconlaunch.cache.json", true)||{};
   let launchHash = s.hash(/\.info/);
@@ -186,39 +188,25 @@
       let i = YtoIdx(e.y);
       selectItem(i, e);
     },
-    swipe: (h,_) => { if(settings.swipeExit && h==1) { returnToClock(); } },
+    swipe: (h,_) => { if(settings.swipeExit && h==1) { Bangle.showClock(); } },
+    btn: _=> { if (settings.oneClickExit) Bangle.showClock(); },
+    remove: function() {
+      if (timeout) clearTimeout(timeout);
+      if (settings.fullscreen) { // for fast-load, if we hid widgets then we should show them again
+        require("widget_utils").show();
+      }
+    }
   };
-
-  const returnToClock = function() {
-    Bangle.setUI();
-    delete launchCache;
-    delete launchHash;
-    delete drawItemAuto;
-    delete drawText;
-    delete selectItem;
-    delete onDrag;
-    delete drawItems;
-    delete drawItem;
-    delete returnToClock;
-    delete idxToY;
-    delete YtoIdx;
-    delete settings;
-    if (timeout) clearTimeout(timeout);
-    setTimeout(eval, 0, s.read(".bootcde"));
-  };
-
-  
-  if (settings.oneClickExit) mode.btn = returnToClock;
 
   let timeout;
   const updateTimeout = function(){
   if (settings.timeOut!="Off"){
       let time=parseInt(settings.timeOut);  //the "s" will be trimmed by the parseInt
       if (timeout) clearTimeout(timeout);
-      timeout = setTimeout(returnToClock,time*1000);  
+      timeout = setTimeout(Bangle.showClock,time*1000);
     }
-  }
-  
+  };
+
   updateTimeout();
 
   Bangle.setUI(mode);
