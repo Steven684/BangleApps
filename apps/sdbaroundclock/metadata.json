@@ -4,6 +4,7 @@
   "version": "0.01",
   "description": "Just a clock... or is it?",
   "icon": "sdbaroundclock.png",
+  "type": "clock",
   "tags": "clock",
   "supports": ["BANGLEJS2"],
   "readme": "README.md",
